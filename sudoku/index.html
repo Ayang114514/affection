@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数独 · 大肥鱼</title>
+<style>
+  :root{
+    --bg:#0d1520; --panel:#14202f; --line:#2a3d55; --line-strong:#6d92bd;
+    --cell:#16233a; --cell-fixed:#111c2d; --cell-sel:#1e3a5f;
+    --txt:#dbe8f7; --txt-fixed:#8fb4dc; --accent:#4ea1ff; --accent2:#8fd3ff;
+    --ok:#3ddc97; --bad:#ff6b7a; --muted:#5f7896;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:radial-gradient(1200px 800px at 50% -10%,#16283d 0%,var(--bg) 60%);
+    color:var(--txt); font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .wrap{width:100%; max-width:520px}
+  header{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px}
+  h1{font-size:20px; margin:0; letter-spacing:.5px}
+  h1 small{color:var(--muted); font-size:12px; font-weight:400; margin-left:8px}
+  .timer{font-variant-numeric:tabular-nums; color:var(--accent2); font-size:15px}
+  .bar{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
+  button, select{
+    background:var(--panel); color:var(--txt); border:1px solid var(--line);
+    border-radius:9px; padding:7px 12px; font-size:13px; cursor:pointer;
+    transition:.15s; font-family:inherit;
+  }
+  button:hover,select:hover{border-color:var(--line-strong); background:#182740}
+  button.on{background:var(--accent); border-color:var(--accent); color:#06121f; font-weight:600}
+  select{padding:7px 8px}
+
+  .board{
+    display:grid; grid-template-columns:repeat(9,1fr);
+    border:2px solid var(--line-strong); border-radius:10px;
+    overflow:hidden; aspect-ratio:1/1; user-select:none;
+    background:var(--cell);
+  }
+  .cell{
+    background:var(--cell); display:flex; align-items:center; justify-content:center;
+    font-size:clamp(18px,5vw,26px); font-weight:500; cursor:pointer; position:relative;
+    transition:background .12s;
+    border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  /* 第 3/6 列、第 3/6 行加粗；最右列与最下行去边 */
+  .cell:nth-child(9n+3),.cell:nth-child(9n+6){border-right-width:2px; border-right-color:var(--line-strong)}
+  .cell:nth-child(9n){border-right:none}
+  .cell:nth-child(n+19):nth-child(-n+27),
+  .cell:nth-child(n+46):nth-child(-n+54){border-bottom-width:2px; border-bottom-color:var(--line-strong)}
+  .cell:nth-child(n+73){border-bottom:none}
+  .cell.fixed{background:var(--cell-fixed); color:var(--txt-fixed); font-weight:600}
+  .cell.peer{background:#1a2b43}
+  .cell.same{background:#1d3554}
+  .cell.sel{background:var(--cell-sel); box-shadow:inset 0 0 0 2px var(--accent)}
+  .cell.bad{color:var(--bad)}
+  .cell.hint{animation:pop .4s ease}
+  @keyframes pop{0%{transform:scale(.7);opacity:.2}100%{transform:scale(1);opacity:1}}
+  .win{color:var(--ok); font-weight:600}
+
+  /* 笔记 */
+  .notes{display:grid; grid-template-columns:repeat(3,1fr); inset:0; position:absolute; padding:2px}
+  .notes span{font-size:9px; color:var(--muted); display:flex; align-items:center; justify-content:center; line-height:1}
+
+  .pad{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:12px}
+  .pad button{padding:12px 0; font-size:17px; font-weight:600}
+  .pad button.del{color:var(--bad)}
+  footer{margin-top:12px; font-size:12px; color:var(--muted); display:flex; justify-content:space-between}
+  .win{color:var(--ok); font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>数独<small>SNOXUDU</small></h1>
+    <div class="timer" id="timer">00:00</div>
+  </header>
+
+  <div class="bar">
+    <select id="level">
+      <option value="40">简单</option>
+      <option value="48" selected>中等</option>
+      <option value="54">困难</option>
+      <option value="58">专家</option>
+    </select>
+    <button id="newBtn">新开一局</button>
+    <button id="noteBtn">笔记</button>
+    <button id="undoBtn">撤销</button>
+    <button id="hintBtn">提示</button>
+    <button id="checkBtn">检查</button>
+  </div>
+
+  <div class="board" id="board"></div>
+
+  <div class="pad" id="pad">
+    <button data-n="1">1</button><button data-n="2">2</button><button data-n="3">3</button>
+    <button data-n="4">4</button><button data-n="5">5</button>
+    <button data-n="6">6</button><button data-n="7">7</button>
+    <button data-n="8">8</button><button data-n="9">9</button>
+    <button class="del" data-n="0">清除</button>
+  </div>
+
+  <footer>
+    <span>方向键移动 · 1-9 填数 · Delete 清除 · N 切换笔记</span>
+    <span id="status"></span>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const boardEl = document.getElementById('board');
+  const timerEl = document.getElementById('timer');
+  const statusEl = document.getElementById('status');
+  const levelEl = document.getElementById('level');
+  const noteBtn = document.getElementById('noteBtn');
+
+  const S = { puzzle:null, solution:null, grid:null, notes:null, fixed:null,
+              sel:-1, noteMode:false, undo:[], t0:0, timerId:null, done:false };
+
+  const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
+  const boxOf = i => ((i/27)|0)*3 + (((i%9)/3)|0);
+
+  /* ---------- 求解 / 计数（位运算 + MRV） ---------- */
+  function countSolutions(g, limit){
+    const rows=new Int32Array(9), cols=new Int32Array(9), boxes=new Int32Array(9);
+    for(let i=0;i<81;i++){
+      const v=g[i]; if(!v) continue;
+      const b=1<<(v-1);
+      rows[(i/9)|0]|=b; cols[i%9]|=b; boxes[boxOf(i)]|=b;
+    }
+    let count=0;
+    (function rec(){
+      if(count>=limit) return;
+      let best=-1, usedBest=0, minCnt=10;
+      for(let i=0;i<81;i++){
+        if(g[i]) continue;
+        const used = rows[(i/9)|0] | cols[i%9] | boxes[boxOf(i)];
+        let cnt=0;
+        for(let v=1;v<=9;v++) if(!(used & (1<<(v-1)))) cnt++;
+        if(cnt===0) return;
+        if(cnt<minCnt){minCnt=cnt;best=i;usedBest=used; if(cnt===1) break;}
+      }
+      if(best===-1){ count++; return; }
+      const r=(best/9)|0, c=best%9, b=boxOf(best);
+      for(let v=1;v<=9;v++){
+        const bit=1<<(v-1);
+        if(usedBest & bit) continue;
+        g[best]=v; rows[r]|=bit; cols[c]|=bit; boxes[b]|=bit;
+        rec();
+        g[best]=0; rows[r]&=~bit; cols[c]&=~bit; boxes[b]&=~bit;
+        if(count>=limit) return;
+      }
+    })();
+    return count;
+  }
+
+  function makeSolution(){
+    const g=new Int8Array(81);
+    const rows=new Int32Array(9), cols=new Int32Array(9), boxes=new Int32Array(9);
+    (function rec(i){
+      if(i===81) return true;
+      const r=(i/9)|0, c=i%9, b=boxOf(i);
+      for(const v of shuffle([1,2,3,4,5,6,7,8,9])){
+        const bit=1<<(v-1);
+        if((rows[r]|cols[c]|boxes[b]) & bit) continue;
+        g[i]=v; rows[r]|=bit; cols[c]|=bit; boxes[b]|=bit;
+        if(rec(i+1)) return true;
+        g[i]=0; rows[r]&=~bit; cols[c]&=~bit; boxes[b]&=~bit;
+      }
+      return false;
+    })(0);
+    return g;
+  }
+
+  function makePuzzle(holes){
+    const solution = makeSolution();
+    const puzzle = solution.slice();
+    let removed = 0;
+    for(const i of shuffle([...Array(81).keys()])){
+      if(removed >= holes) break;
+      const bak = puzzle[i];
+      if(!bak) continue;
+      puzzle[i] = 0;
+      if(countSolutions(puzzle.slice(), 2) !== 1) puzzle[i] = bak;
+      else removed++;
+    }
+    return { puzzle, solution };
+  }
+
+  /* ---------- 渲染 ---------- */
+  function buildDom(){
+    boardEl.innerHTML = '';
+    for(let i=0;i<81;i++){
+      const d=document.createElement('div');
+      d.className='cell'; d.dataset.i=i;
+      d.addEventListener('click',()=>{ S.sel=i; draw(); });
+      boardEl.appendChild(d);
+    }
+  }
+
+  function conflicts(){
+    const bad = new Set();
+    for(let i=0;i<81;i++){
+      const v=S.grid[i]; if(!v) continue;
+      const r=(i/9)|0, c=i%9, b=boxOf(i);
+      for(let j=0;j<81;j++){
+        if(j===i || S.grid[j]!==v) continue;
+        if(((j/9)|0)===r || j%9===c || boxOf(j)===b){ bad.add(i); bad.add(j); }
+      }
+    }
+    return bad;
+  }
+
+  function draw(){
+    const bad = conflicts();
+    const selV = S.sel>=0 ? S.grid[S.sel] : 0;
+    const sr = S.sel>=0 ? (S.sel/9)|0 : -1;
+    const sc = S.sel>=0 ? S.sel%9 : -1;
+    const sb = S.sel>=0 ? boxOf(S.sel) : -1;
+
+    [...boardEl.children].forEach((el,i)=>{
+      const v = S.grid[i];
+      const cls = ['cell'];
+      if(S.fixed[i]) cls.push('fixed');
+      if(S.sel>=0 && i!==S.sel && ((i/9)|0)===sr || (S.sel>=0 && i!==S.sel && i%9===sc) || (S.sel>=0 && i!==S.sel && boxOf(i)===sb)) cls.push('peer');
+      if(selV && v===selV && i!==S.sel) cls.push('same');
+      if(i===S.sel) cls.push('sel');
+      if(bad.has(i)) cls.push('bad');
+      el.className = cls.join(' ');
+
+      if(v){
+        el.textContent = v;
+      } else if(S.notes[i]){
+        const s = document.createElement('div'); s.className='notes';
+        for(let n=1;n<=9;n++){
+          const sp=document.createElement('span');
+          sp.textContent = S.notes[i].has(n) ? n : '';
+          s.appendChild(sp);
+        }
+        el.textContent=''; el.appendChild(s);
+      } else {
+        el.textContent='';
+      }
+    });
+
+    if(!S.done){
+      const filled = S.grid.every(v=>v!==0);
+      const clean = bad.size===0;
+      if(filled && clean){ win(); }
+    }
+  }
+
+  /* ---------- 交互 ---------- */
+  function pushUndo(i, prevV, prevNotes){
+    S.undo.push({ i, v: prevV, notes: prevNotes ? new Set(prevNotes) : null });
+    if(S.undo.length>200) S.undo.shift();
+  }
+
+  function setValue(n){
+    if(S.done || S.sel<0) return;
+    const i = S.sel;
+    if(S.fixed[i]) return;
+    pushUndo(i, S.grid[i], S.notes[i]);
+
+    if(n===0){
+      S.grid[i]=0; S.notes[i]=null;
+    } else if(S.noteMode){
+      if(!S.notes[i]) S.notes[i]=new Set();
+      S.notes[i].has(n) ? S.notes[i].delete(n) : S.notes[i].add(n);
+      S.grid[i]=0;
+    } else {
+      S.grid[i] = S.grid[i]===n ? 0 : n;
+      S.notes[i]=null;
+      if(S.grid[i]) {
+        // 自动清除同行列宫的笔记
+        const r=(i/9)|0, c=i%9, b=boxOf(i);
+        for(let j=0;j<81;j++){
+          if(j===i || !S.notes[j]) continue;
+          if(((j/9)|0)===r || j%9===c || boxOf(j)===b) S.notes[j].delete(n);
+        }
+      }
+    }
+    draw();
+  }
+
+  function undo(){
+    const it = S.undo.pop();
+    if(!it) return;
+    S.grid[it.i] = it.v;
+    S.notes[it.i] = it.notes;
+    S.sel = it.i;
+    draw();
+  }
+
+  function hint(){
+    if(S.done || S.sel<0) return;
+    const i=S.sel;
+    if(S.fixed[i] && S.grid[i]===S.solution[i]) return;
+    pushUndo(i, S.grid[i], S.notes[i]);
+    S.grid[i] = S.solution[i];
+    S.notes[i] = null;
+    S.sel = i;
+    draw();
+    const el = boardEl.children[i];
+    el.classList.add('hint');
+    setTimeout(()=>el.classList.remove('hint'), 400);
+  }
+
+  function check(){
+    const bad = conflicts();
+    let wrong = 0;
+    for(let i=0;i<81;i++) if(S.grid[i] && S.grid[i]!==S.solution[i]) wrong++;
+    statusEl.textContent = (bad.size || wrong)
+      ? `有 ${Math.max(bad.size, wrong)} 处冲突`
+      : '目前全对';
+    setTimeout(()=>{ statusEl.textContent=''; }, 2500);
+  }
+
+  function win(){
+    S.done = true;
+    clearInterval(S.timerId);
+    statusEl.textContent = '完成！用时 ' + timerEl.textContent;
+    statusEl.className = 'win';
+  }
+
+  /* ---------- 计时 ---------- */
+  function startTimer(){
+    clearInterval(S.timerId);
+    S.t0 = Date.now();
+    timerEl.textContent = '00:00';
+    S.timerId = setInterval(()=>{
+      const s = Math.floor((Date.now()-S.t0)/1000);
+      timerEl.textContent = String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+    }, 250);
+  }
+
+  /* ---------- 开局 ---------- */
+  function newGame(){
+    statusEl.textContent = '生成中…'; statusEl.className='';
+    setTimeout(()=>{
+      const holes = +levelEl.value;
+      const { puzzle, solution } = makePuzzle(holes);
+      S.puzzle = puzzle; S.solution = solution;
+      S.grid = Array.from(puzzle);
+      S.notes = Array(81).fill(null);
+      S.fixed = Array.from(puzzle, v=>v!==0);
+      S.sel = -1; S.undo = []; S.done = false;
+      draw();
+      statusEl.textContent = '';
+      startTimer();
+    }, 30);
+  }
+
+  /* ---------- 事件 ---------- */
+  document.getElementById('newBtn').onclick = () => { S.done=false; newGame(); };
+  document.getElementById('undoBtn').onclick = undo;
+  document.getElementById('hintBtn').onclick = hint;
+  document.getElementById('checkBtn').onclick = check;
+  noteBtn.onclick = () => {
+    S.noteMode = !S.noteMode;
+    noteBtn.classList.toggle('on', S.noteMode);
+  };
+  document.getElementById('pad').addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    setValue(+b.dataset.n);
+  });
+  document.addEventListener('keydown', e=>{
+    if(e.key>='1' && e.key<='9'){ setValue(+e.key); e.preventDefault(); return; }
+    if(e.key==='Delete'||e.key==='Backspace'||e.key==='0'){ setValue(0); e.preventDefault(); return; }
+    if(e.key==='n'||e.key==='N'){ noteBtn.click(); return; }
+    if(e.key==='z'&&(e.ctrlKey||e.metaKey)){ undo(); e.preventDefault(); return; }
+    let r = S.sel<0?0:(S.sel/9)|0, c = S.sel<0?0:S.sel%9;
+    if(e.key==='ArrowUp'){ r=(r+8)%9; }
+    else if(e.key==='ArrowDown'){ r=(r+1)%9; }
+    else if(e.key==='ArrowLeft'){ c=(c+8)%9; }
+    else if(e.key==='ArrowRight'){ c=(c+1)%9; }
+    else return;
+    S.sel = r*9+c; draw(); e.preventDefault();
+  });
+
+  buildDom();
+  newGame();
+})();
+</script>
+</body>
+</html>
