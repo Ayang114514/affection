@@ -404,12 +404,12 @@ h1{
   .stats{grid-template-columns:repeat(2,1fr)}
   .thead{display:none}
   .row{
-    grid-template-columns:44px 1fr auto;grid-template-areas:"r w v" "r b b" "r e e";
+    grid-template-columns:44px 1fr auto;grid-template-areas:"r w v" "r m m" "r b b" "r e e";
     height:auto;padding:16px 18px;row-gap:10px;
   }
   .rank{grid-area:r;align-self:start;padding-top:5px}
   .who{grid-area:w}
-  .badge{display:none}
+  .lv{grid-area:m;display:flex;align-items:center}
   .val{grid-area:v;text-align:right}
   .bar{grid-area:b}
   .edit{grid-area:e;justify-content:flex-start}
@@ -417,10 +417,14 @@ h1{
   .hero-r{align-items:flex-start}
 }
 @media (max-width:560px){
-  .wrap{padding:20px 14px 50px}
+  .wrap{padding:20px 14px 120px}
   h1{font-size:24px}
   .brand-whale{width:70px;height:70px}
   .stat .n{font-size:24px}
+  .row{padding:14px 12px;grid-template-columns:34px 1fr auto}
+  .rank{font-size:15px}
+  .badge{font-size:11px;padding:3px 9px}
+  .toast{bottom:16px;font-size:12px;padding:9px 16px}
 }
 </style>
 <script>window.__AFFECTION_READONLY__ = true;</script>
@@ -600,7 +604,7 @@ function render(){
             <div class="uid">${u.user_id}</div>
           </div>
         </div>
-        <div><span class="badge" style="${badgeStyle(u.value)}">${esc(u.level)}</span></div>
+        <div class="lv"><span class="badge" style="${badgeStyle(u.value)}">${esc(u.level)}</span></div>
         <div class="val" style="color:${c}">${u.value}</div>
         <div class="bar"><i style="width:${pct}%;background:${c};color:${c}"></i></div>
         <div class="edit">
@@ -770,6 +774,6 @@ lvMask.addEventListener('click', e => { if (e.target === lvMask) lvMask.classLis
 
 /* static: 数据已内联 */
 </script>
-<script>DATA = {"ok": true, "max": 1314, "levels": [{"value": 0, "name": "陌生"}, {"value": 60, "name": "初识"}, {"value": 160, "name": "熟悉"}, {"value": 300, "name": "亲近"}, {"value": 450, "name": "粘人"}, {"value": 600, "name": "心动"}, {"value": 760, "name": "亲密"}, {"value": 900, "name": "认可"}, {"value": 1100, "name": "心与魂"}, {"value": 1300, "name": "永世同频"}], "users": [{"user_id": "2021952647", "name": "阿洋爱吃薯条", "value": 1314, "level": "永世同频", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2021952647&s=100"}, {"user_id": "3623578466", "name": "她小也", "value": 1273, "level": "心与魂", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3623578466&s=100"}, {"user_id": "2862650468", "name": "时空•魔梦", "value": 602, "level": "心动", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2862650468&s=100"}, {"user_id": "398543363", "name": ":DDDDDDDD", "value": 567, "level": "粘人", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=398543363&s=100"}, {"user_id": "1300985872", "name": "盛衍磨", "value": 470, "level": "粘人", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1300985872&s=100"}, {"user_id": "3046907097", "name": "摸鱼の小胡", "value": 456, "level": "粘人", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3046907097&s=100"}, {"user_id": "2218251358", "name": "口渴不喝水，掰开焊接腿...", "value": 325, "level": "亲近", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2218251358&s=100"}, {"user_id": "1418426075", "name": "Lachca Sativa", "value": 246, "level": "熟悉", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1418426075&s=100"}, {"user_id": "2106448527", "name": "韩某", "value": 176, "level": "熟悉", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2106448527&s=100"}, {"user_id": "2702187036", "name": "summer_wave", "value": 89, "level": "初识", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2702187036&s=100"}, {"user_id": "3160442980", "name": "Yukawa", "value": 33, "level": "陌生", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3160442980&s=100"}, {"user_id": "3292921638", "name": "3292921638", "value": 29, "level": "陌生", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3292921638&s=100"}, {"user_id": "2838511980", "name": "是兀不是π。", "value": 10, "level": "陌生", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2838511980&s=100"}], "generatedAt": "2026-11-21 16:11"};MAXV = 1314;render();(function(){var t=document.getElementById('syncTime');if(t){t.textContent='静态快照 ' + (DATA.generatedAt||'');}})();</script>
+<script>DATA = {"ok": true, "max": 1314, "levels": [{"value": 0, "name": "陌生"}, {"value": 60, "name": "初识"}, {"value": 160, "name": "熟悉"}, {"value": 300, "name": "亲近"}, {"value": 450, "name": "粘人"}, {"value": 600, "name": "心动"}, {"value": 760, "name": "亲密"}, {"value": 900, "name": "认可"}, {"value": 1100, "name": "心与魂"}, {"value": 1300, "name": "永世同频"}], "users": [{"user_id": "2021952647", "name": "阿洋爱吃薯条", "value": 1314, "level": "永世同频", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2021952647&s=100"}, {"user_id": "3623578466", "name": "她小也", "value": 1273, "level": "心与魂", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3623578466&s=100"}, {"user_id": "2862650468", "name": "时空•魔梦", "value": 602, "level": "心动", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2862650468&s=100"}, {"user_id": "398543363", "name": ":DDDDDDDD", "value": 567, "level": "粘人", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=398543363&s=100"}, {"user_id": "1300985872", "name": "盛衍磨", "value": 502, "level": "粘人", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1300985872&s=100"}, {"user_id": "3046907097", "name": "摸鱼の小胡", "value": 456, "level": "粘人", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3046907097&s=100"}, {"user_id": "2218251358", "name": "口渴不喝水，掰开焊接腿...", "value": 325, "level": "亲近", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2218251358&s=100"}, {"user_id": "1418426075", "name": "Lachca Sativa", "value": 246, "level": "熟悉", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1418426075&s=100"}, {"user_id": "2106448527", "name": "韩某", "value": 176, "level": "熟悉", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2106448527&s=100"}, {"user_id": "2702187036", "name": "summer_wave", "value": 89, "level": "初识", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2702187036&s=100"}, {"user_id": "3160442980", "name": "Yukawa", "value": 33, "level": "陌生", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3160442980&s=100"}, {"user_id": "3292921638", "name": "3292921638", "value": 29, "level": "陌生", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3292921638&s=100"}, {"user_id": "2838511980", "name": "是兀不是π。", "value": 10, "level": "陌生", "updated_at": 0, "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2838511980&s=100"}], "generatedAt": "2026-11-21 16:16"};MAXV = 1314;render();(function(){var t=document.getElementById('syncTime');if(t){t.textContent='静态快照 ' + (DATA.generatedAt||'');}})();</script>
 </body>
 </html>
