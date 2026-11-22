@@ -48,7 +48,7 @@
    "user_id": "2021952647",
    "name": "阿洋爱吃薯条",
    "value": 1314,
-   "overflow": 0,
+   "overflow": 6,
    "level": "永世同频",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2021952647&s=100",
@@ -76,6 +76,7 @@
     482,
     515,
     549,
+    1314,
     1314
    ]
   },
@@ -535,5 +536,5 @@
    ]
   }
  ],
- "generatedAt": "2026-11-22 17:49"
+ "generatedAt": "2026-11-22 17:58"
 }
