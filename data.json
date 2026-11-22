@@ -1,6 +1,6 @@
 {
  "ok": true,
- "max": 1314,
+ "max": 2140,
  "levels": [
   {
    "value": 0,
@@ -41,15 +41,23 @@
   {
    "value": 1300,
    "name": "永世同频"
+  },
+  {
+   "value": 1315.0,
+   "name": "魂梦与共"
+  },
+  {
+   "value": 1815.0,
+   "name": "生死同归"
   }
  ],
  "users": [
   {
    "user_id": "2021952647",
    "name": "阿洋爱吃薯条",
-   "value": 1314,
-   "overflow": 6,
-   "level": "永世同频",
+   "value": 1320,
+   "overflow": 0,
+   "level": "魂梦与共",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2021952647&s=100",
    "spark": [
@@ -536,5 +544,5 @@
    ]
   }
  ],
- "generatedAt": "2026-11-22 18:12"
+ "generatedAt": "2026-11-22 18:25"
 }
