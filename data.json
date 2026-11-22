@@ -46,7 +46,7 @@
  "users": [
   {
    "user_id": "2021952647",
-   "name": "2021952647",
+   "name": "阿洋",
    "value": 1314,
    "level": "永世同频",
    "updated_at": 0,
@@ -55,15 +55,15 @@
   {
    "user_id": "3623578466",
    "name": "她小也",
-   "value": 1273,
-   "level": "心与魂",
+   "value": 1314,
+   "level": "永世同频",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3623578466&s=100"
   },
   {
    "user_id": "2862650468",
    "name": "时空•魔梦",
-   "value": 602,
+   "value": 680,
    "level": "心动",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2862650468&s=100"
@@ -103,7 +103,7 @@
   {
    "user_id": "1418426075",
    "name": "Lachca Sativa",
-   "value": 246,
+   "value": 285,
    "level": "熟悉",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1418426075&s=100"
@@ -147,7 +147,15 @@
    "level": "陌生",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2838511980&s=100"
+  },
+  {
+   "user_id": "2059270893",
+   "name": "秦始皇",
+   "value": 6,
+   "level": "陌生",
+   "updated_at": 0,
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2059270893&s=100"
   }
  ],
- "generatedAt": "2026-11-21 16:24"
+ "generatedAt": "2026-11-22 17:19"
 }
