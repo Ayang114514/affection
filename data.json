@@ -7,35 +7,35 @@
    "name": "陌生"
   },
   {
-   "value": 60,
+   "value": 100,
    "name": "初识"
   },
   {
-   "value": 160,
+   "value": 200,
    "name": "熟悉"
   },
   {
-   "value": 300,
+   "value": 334,
    "name": "亲近"
   },
   {
-   "value": 450,
+   "value": 521,
    "name": "粘人"
   },
   {
-   "value": 600,
+   "value": 667,
    "name": "心动"
   },
   {
-   "value": 760,
+   "value": 778,
    "name": "亲密"
   },
   {
-   "value": 900,
+   "value": 889,
    "name": "认可"
   },
   {
-   "value": 1100,
+   "value": 1000,
    "name": "心与魂"
   },
   {
@@ -46,116 +46,326 @@
  "users": [
   {
    "user_id": "2021952647",
-   "name": "阿洋",
+   "name": "阿洋爱吃薯条",
    "value": 1314,
+   "overflow": 0,
    "level": "永世同频",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2021952647&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2021952647&s=100",
+   "spark": [
+    1132,
+    1137,
+    1152,
+    1163,
+    1169,
+    1185,
+    1193,
+    1200,
+    1206,
+    1213,
+    1222,
+    1230
+   ]
   },
   {
    "user_id": "3623578466",
    "name": "她小也",
    "value": 1314,
+   "overflow": 0,
    "level": "永世同频",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3623578466&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3623578466&s=100",
+   "spark": [
+    1181,
+    1195,
+    1208,
+    1217,
+    1224,
+    1237,
+    1244,
+    1252,
+    1258,
+    1272,
+    1287,
+    1294
+   ]
   },
   {
    "user_id": "2862650468",
    "name": "时空•魔梦",
    "value": 680,
+   "overflow": 0,
    "level": "心动",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2862650468&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2862650468&s=100",
+   "spark": [
+    562,
+    577,
+    584,
+    591,
+    595,
+    608,
+    619,
+    627,
+    640,
+    650,
+    659,
+    669
+   ]
   },
   {
    "user_id": "398543363",
    "name": ":DDDDDDDD",
    "value": 567,
+   "overflow": 0,
    "level": "粘人",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=398543363&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=398543363&s=100",
+   "spark": [
+    385,
+    396,
+    405,
+    419,
+    431,
+    446,
+    455,
+    465,
+    477,
+    489,
+    494,
+    503
+   ]
   },
   {
    "user_id": "1300985872",
    "name": "盛衍磨",
    "value": 502,
-   "level": "粘人",
+   "overflow": 0,
+   "level": "亲近",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1300985872&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1300985872&s=100",
+   "spark": [
+    402,
+    417,
+    432,
+    446,
+    460,
+    475,
+    479,
+    487,
+    502,
+    502,
+    502,
+    502
+   ]
   },
   {
    "user_id": "3046907097",
    "name": "摸鱼の小胡",
    "value": 456,
-   "level": "粘人",
+   "overflow": 0,
+   "level": "亲近",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3046907097&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3046907097&s=100",
+   "spark": [
+    305,
+    312,
+    321,
+    334,
+    350,
+    360,
+    365,
+    369,
+    376,
+    383,
+    398,
+    404
+   ]
   },
   {
    "user_id": "2218251358",
    "name": "口渴不喝水，掰开焊接腿...",
    "value": 325,
-   "level": "亲近",
+   "overflow": 0,
+   "level": "熟悉",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2218251358&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2218251358&s=100",
+   "spark": [
+    151,
+    160,
+    171,
+    182,
+    193,
+    201,
+    215,
+    226,
+    241,
+    246,
+    257,
+    272
+   ]
   },
   {
    "user_id": "1418426075",
    "name": "Lachca Sativa",
    "value": 285,
+   "overflow": 0,
    "level": "熟悉",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1418426075&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1418426075&s=100",
+   "spark": [
+    194,
+    201,
+    213,
+    226,
+    232,
+    243,
+    253,
+    262,
+    268,
+    279,
+    285,
+    285
+   ]
   },
   {
    "user_id": "2106448527",
    "name": "韩某",
    "value": 176,
-   "level": "熟悉",
+   "overflow": 0,
+   "level": "初识",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2106448527&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2106448527&s=100",
+   "spark": [
+    101,
+    107,
+    115,
+    128,
+    138,
+    150,
+    160,
+    173,
+    176,
+    176,
+    176,
+    176
+   ]
   },
   {
    "user_id": "2702187036",
    "name": "summer_wave",
    "value": 89,
-   "level": "初识",
+   "overflow": 0,
+   "level": "陌生",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2702187036&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2702187036&s=100",
+   "spark": [
+    8,
+    15,
+    25,
+    32,
+    37,
+    42,
+    50,
+    60,
+    67,
+    72,
+    83,
+    89
+   ]
   },
   {
    "user_id": "3160442980",
    "name": "Yukawa",
    "value": 33,
+   "overflow": 0,
    "level": "陌生",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3160442980&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3160442980&s=100",
+   "spark": [
+    10,
+    18,
+    25,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33,
+    33
+   ]
   },
   {
    "user_id": "3292921638",
    "name": "3292921638",
    "value": 29,
+   "overflow": 0,
    "level": "陌生",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3292921638&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3292921638&s=100",
+   "spark": [
+    8,
+    24,
+    29,
+    29,
+    29,
+    29,
+    29,
+    29,
+    29,
+    29,
+    29,
+    29
+   ]
   },
   {
    "user_id": "2838511980",
    "name": "是兀不是π。",
    "value": 10,
+   "overflow": 0,
    "level": "陌生",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2838511980&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2838511980&s=100",
+   "spark": [
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10
+   ]
   },
   {
    "user_id": "2059270893",
    "name": "秦始皇",
    "value": 6,
+   "overflow": 0,
    "level": "陌生",
    "updated_at": 0,
-   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2059270893&s=100"
+   "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2059270893&s=100",
+   "spark": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ]
   }
  ],
- "generatedAt": "2026-11-22 17:19"
+ "generatedAt": "2026-11-22 17:41"
 }
