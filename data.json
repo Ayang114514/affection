@@ -58,20 +58,18 @@
   1914,
   313,
   118,
-  280
+  191
  ],
  "users": [
   {
    "user_id": "2021952647",
    "name": "阿洋爱吃薯条",
-   "value": 1608,
+   "value": 1488,
    "overflow": 0,
    "level": "魂梦与共",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2021952647&s=100",
    "spark": [
-    513,
-    481,
     475,
     468,
     471,
@@ -99,20 +97,21 @@
     1572,
     1588,
     1598,
-    1608
+    1608,
+    1548,
+    1488
    ],
-   "trend": 1186
+   "trend": 1066
   },
   {
    "user_id": "3623578466",
    "name": "UdM",
-   "value": 1388,
+   "value": 1398,
    "overflow": 0,
    "level": "魂梦与共",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=3623578466&s=100",
    "spark": [
-    588,
     620,
     650,
     651,
@@ -141,20 +140,20 @@
     1341,
     1358,
     1375,
-    1388
+    1388,
+    1398
    ],
-   "trend": 973
+   "trend": 983
   },
   {
    "user_id": "2862650468",
    "name": "时空•魔梦",
-   "value": 836,
+   "value": 846,
    "overflow": 0,
    "level": "亲密",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=2862650468&s=100",
    "spark": [
-    356,
     307,
     299,
     291,
@@ -183,20 +182,20 @@
     806,
     816,
     829,
-    836
+    836,
+    846
    ],
-   "trend": 620
+   "trend": 630
   },
   {
    "user_id": "1300985872",
    "name": "盛衍磨",
-   "value": 769,
+   "value": 780,
    "overflow": 0,
-   "level": "心动",
+   "level": "亲密",
    "updated_at": 0,
    "avatar": "https://q1.qlogo.cn/g?b=qq&nk=1300985872&s=100",
    "spark": [
-    223,
     204,
     203,
     221,
@@ -225,9 +224,10 @@
     744,
     755,
     764,
-    769
+    769,
+    780
    ],
-   "trend": 626
+   "trend": 637
   },
   {
    "user_id": "398543363",
@@ -605,5 +605,5 @@
    "trend": 0
   }
  ],
- "generatedAt": "2026-11-25 23:05"
+ "generatedAt": "2026-11-25 23:35"
 }
